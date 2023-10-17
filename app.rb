@@ -57,6 +57,13 @@ class App
     end
   end
 
+  def list_authors
+    puts 'No authors in the library' if @authors.empty?
+    @authors.each_with_index do |author, index|
+      puts "#{index + 1} | #{author.first_name} #{author.last_name}"
+    end
+  end
+
   def add_game
     genre = Genre.new(user_input("Enter game's Genre: "))
     label = Label.new(user_input("Enter game Title/label: "), SecureRandom.hex(3))

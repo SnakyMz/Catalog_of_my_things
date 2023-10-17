@@ -1,3 +1,5 @@
+require_relative 'modules/app_methods'
+require_relative 'modules/input_taker'
 # App class containing methods to perform application operations
 class App
   def initialize
@@ -8,6 +10,18 @@ class App
     @labels = []
     @authors = []
   end
+
+  # ##################
+  # adding the modules
+  ####################
+
+  include InputTaker # join methods, they can take data for book and label classes
+  # join the methods for label and book classes (insertion and listing)
+  include Methods
+
+  # ##################
+  # modules added
+  ####################
 
   def run(option) # rubocop:disable Metrics/MethodLength, Metrics/CyclomaticComplexity
     case option
@@ -30,7 +44,7 @@ class App
     when 9
       add_game
     when 10
-      exit
+      add_label
     else
       puts 'Invalid option'
     end

@@ -21,7 +21,7 @@ def main
   puts 'Welcome to Catalog of my things'
   loop do
     display_options
-    option = user_input('Your option: ')
+    option = user_input('Your option: ').to_i
     app.run(option)
   end
 end

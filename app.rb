@@ -66,14 +66,14 @@ class App
 
   def add_game
     genre = Genre.new(user_input("Enter game's Genre: "))
-    label = Label.new(user_input("Enter game Title/label: "), SecureRandom.hex(3))
+    label = Label.new(user_input('Enter game Title/label: '), SecureRandom.hex(3))
     puts "Enter game's Director/Author"
-    first_name = user_input("First name: ")
-    last_name = user_input("Last name: ")
+    first_name = user_input('First name: ')
+    last_name = user_input('Last name: ')
     author = Author.new(first_name, last_name)
-    multiplayer = user_input("Does the game has multiplayer option[true/false]: ")
-    last_played_at = user_input("Last played[yyyy-mm-dd]: ")
-    published_date = user_input("Release date[yyyy-mm-dd]: ")
+    multiplayer = user_input('Does the game has multiplayer option[true/false]: ')
+    last_played_at = user_input('Last played[yyyy-mm-dd]: ')
+    published_date = user_input('Release date[yyyy-mm-dd]: ')
     game = Game.new(multiplayer, last_played_at, published_date)
     genre.add_item(game)
     label.add_item(game)

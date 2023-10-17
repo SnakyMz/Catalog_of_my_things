@@ -14,13 +14,14 @@ class Item
     @archived = archived
   end
 
-  # should change the archived property to true
+  # return true/false if published_date is older than 10 years.
+  def can_be_archived?
+    (Date.today.year - @published_date.year).to_i > 10
+  end
+
+  # should change the archived value to true
   # if the result of the can_be_archived?() method is true
   def move_to_archive
     @archived = true if can_be_archived?
-  end
-  # return true if published_date is older than 10 years.
-  def can_be_archived?
-    (Date.today.year - @published_date.year).to_i > 10
   end
 end

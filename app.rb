@@ -44,4 +44,11 @@ class App
       puts 'Invalid option'
     end
   end
+
+  def list_games
+    puts 'No games in the library' if @games.empty?
+    @games.each_with_index do |game, index|
+      puts "#{index + 1} | #{game.label.name} | Last Played: #{game.last_played_at}"
+    end
+  end
 end

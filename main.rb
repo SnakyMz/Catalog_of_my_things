@@ -1,4 +1,5 @@
 require_relative 'app'
+require_relative 'user_input'
 
 # This method prints the options the user can choose from and gets the user input
 def display_options
@@ -13,7 +14,6 @@ def display_options
   puts '8  - Add a music album'
   puts '9  - Add a game'
   puts '10 - Exit'
-  print 'Your option: '
 end
 
 def main
@@ -21,7 +21,7 @@ def main
   puts 'Welcome to Catalog of my things'
   loop do
     display_options
-    option = gets.chomp.to_i
+    option = user_input('Your option: ')
     app.run(option)
   end
 end

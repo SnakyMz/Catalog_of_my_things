@@ -12,8 +12,8 @@ def display_options
   puts '7  - Add a book'
   puts '8  - Add a music album'
   puts '9  - Add a game'
-  puts '10 - Add label'
-  puts '11 - Exit'
+  puts '10 - Exit'
+  print 'Your option: '
 end
 
 def main
@@ -22,11 +22,8 @@ def main
   loop do
     display_options
     option = gets.chomp.to_i
-    break if option == 11
-
     app.run(option)
   end
-  puts 'Thank you for using the app. Goodbye!'
 end
 
 main

@@ -10,5 +10,9 @@ describe Book do
     it 'should return true, parent => true' do
       expect(book1.can_be_archived?).to be true
     end
+
+    it 'should return true, cover_state => bad' do
+      expect(book2.can_be_archived?).to be true
+    end
   end
 end

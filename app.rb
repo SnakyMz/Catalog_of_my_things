@@ -1,4 +1,6 @@
 require_relative 'classes/genre'
+require_relative 'classes/music_album'
+require_relative 'classes/item'
 require_relative 'classes/label'
 require_relative 'classes/author'
 require_relative 'classes/game'
@@ -6,6 +8,7 @@ require_relative 'modules/app_methods'
 require_relative 'modules/input_taker'
 require_relative 'user_input'
 require 'securerandom'
+require 'date'
 
 # App class containing methods to perform application operations
 class App
@@ -50,8 +53,42 @@ class App
     end
   end
 
+  def add_music_album
+    published_date = user_input('Input publish Date as YYYY-MM-DD: ')
+    user_input('Is music album archvied? [Y/N]: ')
+    user_input('Is music album on spotify? [Y/N]: ')
+    album = MusicAlbum.new(published_date, archived: true, on_spotify: true)
+    @music_albums.push(album)
+    genre = user_input('Input music album genre: ')
+    @genres.push(Genre.new(genre))
+    puts 'Music album added successfully!'
+  end
+
+  def list_music_albums
+    if @music_albums.empty?
+      puts 'No music albums found!'
+    else
+      puts 'Music albums:'
+      @music_albums.each.with_index do |music_album, index|
+        puts "#{index + 1}) publish_date: #{music_album.published_date}, id: #{music_album.id}, archived:
+      #{music_album.archived}, on_spotify: #{music_album.on_spotify}"
+      end
+    end
+  end
+
+  def list_genres
+    if @genres.empty?
+      puts 'No music album genres found!'
+    else
+      puts 'Music album genres:'
+      @genres.each.with_index do |genre, index|
+        puts "#{index + 1}) id: #{genre.id}, name: #{genre.name}"
+      end
+    end
+  end
+
   def list_games
-    puts 'No games in the library' if @games.empty?
+    puts 'No games in the library!' if @games.empty?
     @games.each_with_index do |game, index|
       puts "#{index + 1} | #{game.label.title} | Last Played: #{game.last_played_at}"
     end

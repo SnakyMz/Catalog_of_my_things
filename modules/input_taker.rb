@@ -6,7 +6,9 @@ module InputTaker
     cover_state = gets.chomp.to_s.downcase
     print 'published_date(YYYY-MM-DD): '
     published_date = gets.chomp.to_s
-    [publisher, cover_state, published_date]
+    print 'genre: '
+    genre = gets.chomp.to_s.capitalize
+    [publisher, cover_state, published_date, genre]
   end
 
   def label_inputs

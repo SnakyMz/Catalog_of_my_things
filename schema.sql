@@ -12,18 +12,25 @@ CREATE TABLE items (
     FOREIGN KEY (label_id) REFERENCES labels(id) 
 );
 
-CREATE TABLE books (
-    id SERIAL PRIMARY KEY,
-    title VARCHAR(300) NOT NULL,
-    publisher VARCHAR(300),
-    cover_state VARCHAR(300),
-    label_id INT,
-    genre_id INT,
-    author_id INT,
-    published_date DATE,
-    FOREIGN KEY (label_id) REFERENCES labels(id),
-    FOREIGN KEY (genre_id) REFERENCES genres(id),
-    FOREIGN KEY (author_id) REFERENCES authors(id) 
+CREATE TABLE Books(
+  id INT GENERATED ALWAYS AS IDENTITY,
+  genre_id INT,
+  author_id INT,
+  source_id INT,
+  label_id INT,
+  published_date DATE,
+  archived BOOLEAN,
+  publisher VARCHAR(50),
+  cover_state VARCHAR(20),
+
+  -- primary key of the table 
+  PRIMARY KEY(id),
+
+  -- fks of the table 
+  FOREIGN KEY(genre_id) REFERENCES Genre(id),
+  FOREIGN KEY(suthor_id) REFERENCES Author(id),
+  FOREIGN KEY(source_id) REFERENCES Source(id),
+  FOREIGN KEY(label_id) REFERENCES Labels(id)
 );
 
 CREATE TABLE authors (

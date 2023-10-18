@@ -13,5 +13,10 @@ describe Label do
       compare = label.items[0] == item
       expect(compare).to be true
     end
+
+    it 'The label should be present in item' do
+      compare = label == item.label
+      expect(compare).to be true
+    end
   end
 end

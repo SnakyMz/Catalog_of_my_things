@@ -1,29 +1,26 @@
 require_relative '../classes/book'
 require_relative '../classes/label'
+require_relative '../classes/author'
+require_relative '../classes/genre'
 
 module Methods
   # create a book
   def add_book
     data = book_inputs
-    @books << Book.new(data[0], data[1], data[2])
+    genre = Genre.new(data[3])
+    book = Book.new(data[0], data[1], data[2])
+    genre.add_item(book)
+    @genres << genre
+    @books << book
     puts "\nThanks!"
     puts 'This book created:'
     puts "Publisher: #{data[0]}, Cover_state: #{data[1]}, Published_Date: #{data[2]}"
   end
 
-  # create a label
-  def add_label
-    data = label_inputs
-    @labels << Label.new(data[0], data[1])
-    puts "\nThanks!"
-    puts 'This label created:'
-    puts "Title: #{data[0]}, Color: #{data[1]}"
-  end
-
   def list_books
     puts 'List of the books:'
     @books.each_with_index do |book, i|
-      puts "#{i}:) Publisher: #{book.publisher}, Cover_state: #{book.cover_state}"
+      puts "#{i}:) Publisher: #{book.publisher}, Cover_state: #{book.cover_state}, Genre: #{book.genre.name}"
     end
   end
 

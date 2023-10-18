@@ -1,5 +1,22 @@
 CREATE DATABASE catalogs
 
+CREATE TABLE authors (
+    id SERIAL PRIMARY KEY,
+    first_name VARCHAR(30),
+    last_name VARCHAR(30)
+);
+
+CREATE TABLE labels (
+    id SERIAL PRIMARY KEY,
+    title VARCHAR(30),
+    color VARCHAR(30),
+);
+
+CREATE TABLE genres (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(30)
+);
+
 CREATE TABLE items (
     id SERIAL PRIMARY KEY,
     published_date DATE NOT NULL,
@@ -13,49 +30,17 @@ CREATE TABLE items (
 );
 
 CREATE TABLE Books(
-  id INT GENERATED ALWAYS AS IDENTITY,
+  id SERIAL PRIMARY KEY,
   genre_id INT,
   author_id INT,
-  source_id INT,
   label_id INT,
   published_date DATE,
   archived BOOLEAN,
-  publisher VARCHAR(50),
-  cover_state VARCHAR(20),
-
-  -- primary key of the table 
-  PRIMARY KEY(id),
-
-  -- fks of the table 
-  FOREIGN KEY(genre_id) REFERENCES Genre(id),
-  FOREIGN KEY(suthor_id) REFERENCES Author(id),
-  FOREIGN KEY(source_id) REFERENCES Source(id),
-  FOREIGN KEY(label_id) REFERENCES Labels(id)
-);
-
-CREATE TABLE authors (
-    id SERIAL PRIMARY KEY,
-    first_name VARCHAR(300),
-    last_name VARCHAR(300)
-);
-
-CREATE TABLE Labels (
-  id INT GENERATED ALWAYS AS IDENTITY,
-  title VARCHAR(30),
-  color VARCHAR(30),
-  item_id INT,
-
-  -- primary key of the table
-  PRIMARY KEY(id)
-
-  -- FOREIGN KEY OF THE TABLE 
-
-  FOREIGN KEY(item_id) REFERENCES Items(id)
-);
-
-CREATE TABLE genres (
-    id SERIAL PRIMARY KEY,
-    name VARCHAR(50) NOT NULL
+  publisher VARCHAR(50) NOT NULL,
+  cover_state VARCHAR(20) NOT NULL,
+  FOREIGN KEY(genre_id) REFERENCES genres(id),
+  FOREIGN KEY(author_id) REFERENCES authors(id),
+  FOREIGN KEY(label_id) REFERENCES labels(id)
 );
 
 CREATE TABLE music_albums (
@@ -65,6 +50,7 @@ CREATE TABLE music_albums (
     genre_id INT,
     author_id INT,
     published_date DATE,
+    archived BOOLEAN,
     FOREIGN KEY (label_id) REFERENCES labels(id),
     FOREIGN KEY (genre_id) REFERENCES genres(id),
     FOREIGN KEY (author_id) REFERENCES authors(id) 
@@ -72,12 +58,13 @@ CREATE TABLE music_albums (
 
 CREATE TABLE games (
     id SERIAL PRIMARY KEY,
-    multiplayer VARCHAR(100) NOT NULL,
+    multiplayer VARCHAR(30) NOT NULL,
     last_played_at DATE NOT NULL,
     label_id INT,
     genre_id INT,
     author_id INT,
     published_date DATE,
+    archived BOOLEAN,
     FOREIGN KEY (label_id) REFERENCES labels(id),
     FOREIGN KEY (genre_id) REFERENCES genres(id),
     FOREIGN KEY (author_id) REFERENCES authors(id) 

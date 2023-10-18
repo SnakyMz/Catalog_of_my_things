@@ -57,13 +57,9 @@ class App
   def add_music_album
     published_date = user_input('Input publish Date as YYYY-MM-DD: ')
     spotify = user_input('Is music album on spotify? [Y/N]: ')
-    if spotify == 'Y'
-      spotify = true
-    else
-      spotify = false
-    end
+    spotify = spotify == 'Y'
     genre = Genre.new(user_input('Input music album genre: '))
-    label = Label.new(user_input('Input music album name: '),  SecureRandom.hex(3))
+    label = Label.new(user_input('Input music album name: '), SecureRandom.hex(3))
     puts 'Input music album artist'
     first_name = user_input('First name: ')
     last_name = user_input('Last name: ')
@@ -84,8 +80,9 @@ class App
       puts 'No music albums found!'
     else
       puts 'Music albums:'
-      @music_albums.each.with_index do |music_album, index|
-        puts "#{index + 1}) Album: #{music_album.label.title} by #{music_album.author.first_name} #{music_album.author.last_name}, Genre: #{music_album.genre.name}, publish_date: #{music_album.published_date}, id: #{music_album.id}, archived: #{music_album.archived}, on_spotify: #{music_album.on_spotify}"
+      @music_albums.each.with_index do |album, index|
+        puts "#{index + 1}) Album: #{album.label.title} by #{album.author.first_name} #{album.author.last_name}"
+        puts "Genre: #{album.genre.name}, publish_date: #{album.published_date}, on_spotify: #{album.on_spotify}"
       end
     end
   end

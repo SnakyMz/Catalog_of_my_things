@@ -9,6 +9,7 @@ require 'json'
 def loadgenre
   genres = []
   return genres if File.empty?('json/genre.json')
+
   genresdata = File.read('json/genre.json')
   genresarray = JSON.parse(genresdata)
   genresarray.each do |genre|
@@ -20,6 +21,7 @@ end
 def loadlabel
   labels = []
   return labels if File.empty?('json/label.json')
+
   labelsdata = File.read('json/label.json')
   labelsarray = JSON.parse(labelsdata)
   labelsarray.each do |label|
@@ -31,6 +33,7 @@ end
 def loadauthor
   authors = []
   return authors if File.empty?('json/author.json')
+
   authorsdata = File.read('json/author.json')
   authorsarray = JSON.parse(authorsdata)
   authorsarray.each do |author|
@@ -42,6 +45,7 @@ end
 def loadbook
   books = []
   return books if File.empty?('json/book.json')
+
   booksdata = File.read('json/book.json')
   booksarray = JSON.parse(booksdata)
   booksarray.each do |book|
@@ -56,6 +60,7 @@ end
 def loadmusic
   musics = []
   return musics if File.empty?('json/music.json')
+
   musicsdata = File.read('json/music.json')
   musicsarray = JSON.parse(musicsdata)
   musicsarray.each do |music|
@@ -74,6 +79,7 @@ end
 def loadgame
   games = []
   return games if File.empty?('json/game.json')
+
   gamesdata = File.read('json/game.json')
   gamesarray = JSON.parse(gamesdata)
   gamesarray.each do |game|

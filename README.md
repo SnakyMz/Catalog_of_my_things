@@ -31,6 +31,8 @@
 
 **Catalog of my things** is an app that allows user to store details about their items.
 
+[Here is the link to repository's overview](https://drive.google.com/file/d/1S2yvo1N5ckDo0SqDF19UfQBaqTwht5pd/view?usp=sharing)
+
 ## 🛠 Built With <a name="built-with"></a>
 
 ### Tech Stack <a name="tech-stack"></a>

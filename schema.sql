@@ -1,3 +1,5 @@
+CREATE DATABASE catalogs
+
 CREATE TABLE items (
     id SERIAL PRIMARY KEY,
     published_date DATE NOT NULL,

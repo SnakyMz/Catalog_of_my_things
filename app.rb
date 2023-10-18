@@ -6,6 +6,8 @@ require_relative 'classes/author'
 require_relative 'classes/game'
 require_relative 'modules/app_methods'
 require_relative 'modules/input_taker'
+require_relative 'storedata'
+require_relative 'loaddata'
 require_relative 'user_input'
 require 'securerandom'
 require 'date'
@@ -13,12 +15,12 @@ require 'date'
 # App class containing methods to perform application operations
 class App
   def initialize
-    @books = []
-    @music_albums = []
-    @games = []
-    @genres = []
-    @labels = []
-    @authors = []
+    @books = loadbook
+    @music_albums = loadmusic
+    @games = loadgame
+    @genres = loadgenre
+    @labels = loadlabel
+    @authors = loadauthor
   end
 
   include InputTaker # join methods, they can take data for book and label classes
@@ -46,8 +48,7 @@ class App
     when 9
       add_game
     when 10
-      puts 'Thank you for using the app. Goodbye!'
-      exit
+      exit_app
     else
       puts 'Invalid option'
     end
@@ -55,12 +56,26 @@ class App
 
   def add_music_album
     published_date = user_input('Input publish Date as YYYY-MM-DD: ')
-    user_input('Is music album archvied? [Y/N]: ')
-    user_input('Is music album on spotify? [Y/N]: ')
-    album = MusicAlbum.new(published_date, archived: true, on_spotify: true)
+    spotify = user_input('Is music album on spotify? [Y/N]: ')
+    if spotify == 'Y'
+      spotify = true
+    else
+      spotify = false
+    end
+    genre = Genre.new(user_input('Input music album genre: '))
+    label = Label.new(user_input('Input music album name: '),  SecureRandom.hex(3))
+    puts 'Input music album artist'
+    first_name = user_input('First name: ')
+    last_name = user_input('Last name: ')
+    author = Author.new(first_name, last_name)
+    album = MusicAlbum.new(published_date, on_spotify: spotify)
+    album.genre = genre
+    album.label = label
+    album.author = author
+    @labels.push(label)
+    @genres.push(genre)
+    @authors.push(author)
     @music_albums.push(album)
-    genre = user_input('Input music album genre: ')
-    @genres.push(Genre.new(genre))
     puts 'Music album added successfully!'
   end
 
@@ -70,8 +85,7 @@ class App
     else
       puts 'Music albums:'
       @music_albums.each.with_index do |music_album, index|
-        puts "#{index + 1}) publish_date: #{music_album.published_date}, id: #{music_album.id}, archived:
-      #{music_album.archived}, on_spotify: #{music_album.on_spotify}"
+        puts "#{index + 1}) Album: #{music_album.label.title} by #{music_album.author.first_name} #{music_album.author.last_name}, Genre: #{music_album.genre.name}, publish_date: #{music_album.published_date}, id: #{music_album.id}, archived: #{music_album.archived}, on_spotify: #{music_album.on_spotify}"
       end
     end
   end
@@ -90,7 +104,7 @@ class App
   def list_games
     puts 'No games in the library!' if @games.empty?
     @games.each_with_index do |game, index|
-      puts "#{index + 1} | #{game.label.title} | Last Played: #{game.last_played_at}"
+      puts "#{index + 1} | #{game.label.title} | Genre: #{game.genre.name} | Last Played: #{game.last_played_at}"
     end
   end
 
@@ -120,5 +134,16 @@ class App
     @labels << label
     @authors << author
     puts 'Game added successfully'
+  end
+
+  def exit_app
+    store_genre(@genres)
+    store_label(@labels)
+    store_author(@authors)
+    store_books(@books)
+    store_musics(@music_albums)
+    store_games(@games)
+    puts 'Thank you for using the app. Goodbye!'
+    exit
   end
 end

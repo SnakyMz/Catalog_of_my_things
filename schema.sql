@@ -32,10 +32,18 @@ CREATE TABLE authors (
     last_name VARCHAR(300)
 );
 
-CREATE TABLE labels (
-    id SERIAL PRIMARY KEY,
-    title VARCHAR(300) NOT NULL,
-    color VARCHAR(50) NOT NULL
+CREATE TABLE Labels (
+  id INT GENERATED ALWAYS AS IDENTITY,
+  title VARCHAR(30),
+  color VARCHAR(30),
+  item_id INT,
+
+  -- primary key of the table
+  PRIMARY KEY(id)
+
+  -- FOREIGN KEY OF THE TABLE 
+
+  FOREIGN KEY(item_id) REFERENCES Items(id)
 );
 
 CREATE TABLE genres (
